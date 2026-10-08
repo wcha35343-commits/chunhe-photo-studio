@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春和照相馆 · 本站首页</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#cf3a30;
+  --yellow:#e5ac2b;
+  --blue:#26478f;
+  --purple:#7a3f8c;
+  --olive:#6c7636;
+  --paper:#e9dcbe;
+  --paper2:#f4ecd8;
+  --ink:#241c14;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif SC","Songti SC","SimSun",serif;
+  font-size:15px;
+  line-height:1.85;
+  overflow-x:hidden;
+  position:relative;
+}
+/* =====  伪纸纹：纯CSS降级  ===== */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
+  background-image:
+    repeating-linear-gradient(0deg,rgba(120,90,40,.045) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(120,90,40,.035) 0 1px,transparent 1px 4px);
+  mix-blend-mode:multiply;
+  opacity:.9;
+}
+.mono{font-family:"Space Mono","Courier New",monospace;}
+.deco{font-family:"Bungee","DM Serif Display",serif;letter-spacing:.02em;}
+.serif-en{font-family:"DM Serif Display",Georgia,serif;}
+
+/* =====  顶部  ===== */
+.wrap{max-width:960px;margin:0 auto;padding:0 14px 90px;}
+
+header.top{
+  position:relative;
+  padding:26px 0 8px;
+  min-height:150px;
+}
+.brand{
+  position:relative;z-index:3;
+  display:inline-block;
+  background:var(--red);
+  color:#fff;
+  padding:10px 16px 12px;
+  transform:rotate(-2.4deg);
+  box-shadow:6px 6px 0 var(--blue);
+  border:2px solid var(--ink);
+}
+.brand h1{
+  margin:0;font-size:30px;line-height:1.05;
+  font-family:"DM Serif Display","Noto Serif SC",serif;
+  letter-spacing:.08em;
+}
+.brand .sub{
+  display:block;margin-top:4px;font-size:10px;letter-spacing:.35em;
+  font-family:"Space Mono",monospace;opacity:.92;
+}
+.dot{position:absolute;border:2px solid var(--ink);z-index:1;}
+.d1{width:56px;height:56px;background:var(--yellow);border-radius:50%;top:14px;right:12px;transform:rotate(8deg);}
+.d2{width:34px;height:70px;background:var(--blue);top:70px;right:64px;transform:rotate(-14deg);}
+.d3{width:80px;height:16px;background:var(--olive);top:120px;right:8px;transform:rotate(5deg);}
+.d4{width:26px;height:26px;background:var(--purple);border-radius:50%;top:8px;left:44%;}
+
+/* =====  搜索  ===== */
+.searcher{
+  position:relative;z-index:5;margin-top:20px;
+  background:var(--blue);
+  border:2px solid var(--ink);
+  padding:12px 12px 14px;
+  transform:rotate(.5deg);
+  box-shadow:5px 5px 0 var(--yellow);
+}
+.searcher label{
+  display:block;color:#fff;font-size:11px;letter-spacing:.2em;
+  font-family:"Space Mono",monospace;margin-bottom:7px;
+}
+.srow{display:flex;gap:8px;}
+.srow input{
+  flex:1;min-width:0;
+  border:2px solid var(--ink);
+  background:var(--paper2);
+  padding:10px 11px;
+  font-size:15px;font-family:"Noto Serif SC",serif;color:var(--ink);
+  border-radius:0;outline:none;
+}
+.srow input:focus{background:#fff;box-shadow:inset 0 0 0 2px var(--yellow);}
+.srow button{
+  border:2px solid var(--ink);
+  background:var(--red);color:#fff;
+  font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.14em;
+  padding:10px 16px;cursor:pointer;border-radius:0;
+}
+.srow button:active{transform:translate(1px,1px);}
+.msg{
+  margin-top:8px;font-size:13px;min-height:20px;
+  font-family:"Space Mono",monospace;
+  color:#ffe9a8;
+}
+.msg.bad{color:#ffd0c8;}
+
+/* =====  公告 / 模块  ===== */
+.section{margin-top:26px;position:relative;}
+.tag{
+  display:inline-block;background:var(--ink);color:var(--paper2);
+  font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.22em;
+  padding:3px 10px;
+}
+.board{
+  background:var(--yellow);border:2px solid var(--ink);
+  padding:16px;margin-top:8px;
+  transform:rotate(-.6deg);
+  box-shadow:6px 6px 0 rgba(38,71,143,.85);
+}
+.board p{margin:0 0 10px;}
+.board p:last-child{margin-bottom:0;}
+.hl{background:rgba(207,58,48,.22);padding:0 3px;}
+
+.intro{
+  background:var(--paper2);border:2px dashed var(--ink);
+  padding:16px;margin-top:8px;
+}
+.intro .who{
+  font-family:"DM Serif Display",serif;font-size:19px;margin:0 0 8px;
+  color:var(--blue);
+}
+
+/* =====  未取件照片墙  ===== */
+.grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;
+}
+.pcard{
+  background:#fbf6ea;border:1px solid #b9a877;
+  padding:8px 8px 9px;position:relative;
+  box-shadow:3px 4px 0 rgba(36,28,20,.5);
+}
+.pcard:nth-child(odd){transform:rotate(-1.6deg);}
+.pcard:nth-child(even){transform:rotate(1.4deg);}
+.pcard:nth-child(3n){transform:rotate(.8deg) translateY(6px);}
+.pcard .frame{
+  height:96px;border:1px solid #8a7550;background:
+     linear-gradient(135deg,var(--olive) 0 40%,var(--yellow) 40% 70%,var(--red) 70% 100%);
+  position:relative;overflow:hidden;
+}
+.pcard .frame::after{
+  content:attr(data-mark);
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:"Bungee",serif;font-size:24px;color:rgba(255,255,255,.9);
+  text-shadow:1px 1px 0 rgba(0,0,0,.35);letter-spacing:.1em;
+}
+.pcard h4{
+  margin:7px 0 3px;font-size:13px;font-family:"Space Mono",monospace;
+  letter-spacing:.02em;
+}
+.pcard p{margin:0;font-size:11.5px;line-height:1.6;color:#5a4b35;}
+.stamp{
+  position:absolute;top:4px;right:5px;border:1.5px solid var(--red);
+  color:var(--red);font-family:"Space Mono",monospace;font-size:9px;
+  padding:1px 4px;transform:rotate(11deg);letter-spacing:.1em;background:rgba(255,255,255,.6);
+}
+
+/* =====  联系方式  ===== */
+.contact{
+  background:var(--purple);color:#f6ead2;border:2px solid var(--ink);
+  padding:15px;margin-top:8px;transform:rotate(.7deg);
+  font-family:"Space Mono",monospace;font-size:12.5px;line-height:2;
+}
+.contact b{color:#ffd98a;font-weight:normal;}
+
+/* =====  页脚  ===== */
+footer{margin-top:40px;border-top:3px double var(--ink);padding-top:14px;font-size:11.5px;color:#57492f;}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;}
+footer .mono{font-size:11px;}
+
+/* =====  隐藏页  ===== */
+.page{display:none;}
+.page.on{display:block;animation:fade .34s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.doc{
+  background:var(--paper2);border:2px solid var(--ink);
+  margin-top:22px;position:relative;
+  box-shadow:8px 8px 0 var(--purple);
+}
+.doc-bar{
+  background:var(--ink);color:var(--yellow);
+  font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.2em;
+  padding:6px 12px;display:flex;justify-content:space-between;gap:8px;
+}
+.doc-body{padding:16px 16px 20px;}
+.doc h2{
+  font-family:"DM Serif Display","Noto Serif SC",serif;
+  font-size:23px;margin:0 0 4px;color:var(--red);line-height:1.25;
+}
+.doc .rule{
+  display:inline-block;width:52px;height:5px;background:var(--blue);margin:2px 0 14px;
+}
+.doc p{margin:0 0 12px;}
+.note{
+  border-left:6px solid var(--olive);background:rgba(108,118,54,.12);
+  padding:10px 12px;margin:14px 0;
+}
+.paperclip{
+  display:inline-block;background:var(--red);color:#fff;
+  font-family:"Space Mono",monospace;font-size:12px;
+  padding:2px 8px;transform:rotate(-2deg);margin:0 4px 8px 0;
+}
+table.ledger{
+  width:100%;border-collapse:collapse;font-family:"Space Mono",monospace;
+  font-size:11.5px;margin:12px 0;
+}
+table.ledger th,table.ledger td{
+  border:1px solid #a4906a;padding:6px 7px;text-align:left;
+}
+table.ledger th{background:var(--yellow);font-weight:normal;}
+table.ledger tr:nth-child(even) td{background:rgba(233,220,190,.6);}
+.pagetag{
+  margin-top:18px;text-align:right;
+  font-family:"Bungee",monospace;font-size:13px;letter-spacing:.16em;color:var(--purple);
+}
+.backbtn{
+  display:inline-block;margin-top:14px;
+  border:2px solid var(--ink);background:var(--olive);color:#fff;
+  font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;
+  padding:8px 14px;cursor:pointer;border-radius:0;
+}
+.backbtn:active{transform:translate(1px,1px);}
+
+/* =====  编号门  ===== */
+.gate{
+  border:2px dashed var(--red);background:#fff;
+  padding:14px;margin:16px 0 8px;
+}
+.gate label{
+  display:block;font-family:"Space Mono",monospace;font-size:12px;
+  letter-spacing:.12em;color:var(--red);margin-bottom:8px;
+}
+.gate .ghint{font-size:12px;color:#7a6a4a;margin-top:8px;font-family:"Space Mono",monospace;}
+.gate .gmsg{margin-top:8px;font-size:13px;font-family:"Space Mono",monospace;min-height:18px;color:var(--olive);}
+.gate .gmsg.bad{color:var(--red);}
+.locked-tag{
+  display:inline-block;background:var(--red);color:#fff;
+  font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.15em;
+  padding:2px 7px;transform:rotate(-1.5deg);
+}
+
+/* =====  记录本  ===== */
+.nbtab{
+  position:fixed;right:10px;bottom:12px;z-index:1000;
+  background:var(--yellow);color:var(--ink);
+  border:2px solid var(--ink);
+  font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;
+  padding:9px 12px;cursor:pointer;border-radius:0;
+  transform:rotate(-1.6deg);
+  box-shadow:4px 4px 0 var(--red);
+}
+.nbtab:active{transform:translate(1px,1px) rotate(-1.6deg);}
+.nbtab b{font-family:"Bungee",monospace;font-weight:normal;}
+.nbpanel{
+  position:fixed;inset:auto 0 0 0;z-index:1001;
+  max-height:78vh;overflow-y:auto;
+  background:var(--paper2);border-top:3px solid var(--ink);
+  box-shadow:0 -8px 0 rgba(38,71,143,.5);
+  transform:translateY(105%);transition:transform .28s ease;
+  padding:16px 16px 26px;
+}
+.nbpanel.open{transform:none;}
+.nbhead{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:12px;
+}
+.nbhead h3{
+  margin:0;font-family:"DM Serif Display",serif;font-size:20px;color:var(--red);
+}
+.nbhead .cls{
+  border:2px solid var(--ink);background:var(--red);color:#fff;
+  font-family:"Space Mono",monospace;font-size:12px;
+  padding:5px 10px;cursor:pointer;border-radius:0;
+}
+.nbcols{display:grid;grid-template-columns:1fr;gap:16px;}
+.nbcol h4{
+  margin:0 0 8px;font-family:"Space Mono",monospace;font-size:12px;
+  letter-spacing:.16em;color:var(--blue);
+  background:rgba(38,71,143,.12);padding:3px 8px;display:inline-block;
+}
+.nblist{list-style:none;margin:0;padding:0;}
+.nblist li{
+  font-size:13px;padding:5px 0;border-bottom:1px dashed #b9a877;
+  display:flex;justify-content:space-between;gap:10px;
+}
+.nblist li .num{
+  font-family:"Space Mono",monospace;font-size:11px;color:var(--purple);
+}
+.nbkill{
+  margin-top:16px;border:2px solid var(--ink);background:var(--paper);
+  font-family:"Space Mono",monospace;font-size:11.5px;color:var(--ink);
+  padding:7px 12px;cursor:pointer;border-radius:0;
+}
+.nboverlay{
+  position:fixed;inset:0;background:rgba(36,28,20,.42);z-index:1000;display:none;
+}
+.nboverlay.on{display:block;}
+
+@media (min-width:820px){
+  body{font-size:16px;}
+  .wrap{max-width:880px;padding:0 24px 90px;}
+  header.top{min-height:170px;padding-top:36px;}
+  .brand h1{font-size:42px;}
+  .d1{width:78px;height:78px;right:60px;}
+  .d2{width:46px;height:96px;top:88px;right:130px;}
+  .d3{width:120px;height:20px;top:150px;right:30px;}
+  .searcher{padding:16px 18px 18px;max-width:640px;}
+  .grid{grid-template-columns:repeat(3,1fr);gap:18px;}
+  .pcard .frame{height:118px;}
+  .two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start;}
+  .doc h2{font-size:28px;}
+  .doc-body{padding:24px 28px 30px;}
+  .nbpanel{inset:auto 20px 20px auto;width:520px;border:2px solid var(--ink);
+    box-shadow:9px 9px 0 var(--red);max-height:72vh;border-radius:0;}
+  .nbcols{grid-template-columns:1fr 1fr;}
+  .nboverlay{display:none !important;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="dot d1"></div>
+    <div class="dot d2"></div>
+    <div class="dot d3"></div>
+    <div class="dot d4"></div>
+    <div class="brand">
+      <h1>春和照相馆</h1>
+      <span class="sub">CHUNHE · PHOTO STUDIO · EST.1979</span>
+    </div>
+  </header>
+
+  <div class="searcher">
+    <label>站内检索 / SEARCH</label>
+    <div class="srow">
+      <input id="q" type="text" placeholder="输入你想查的内容……" autocomplete="off">
+      <button id="go">检索</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <!-- ================= 首页 ================= -->
+  <div class="page on" id="home">
+    <div class="section">
+      <span class="tag">关于本站</span>
+      <div class="intro">
+        <p class="who">你在找一个人。</p>
+        <p>家里那本旧相册的最后一页，夹着一张没有取走的取件单，落款是这家照相馆。你在网上翻了很久，才翻到这个早已没人维护的页面——它好像停在了很多年以前，链接还在，灯没关。</p>
+        <p>站长叫周春和，1987 年冬天以后，就再没有人见过他。</p>
+        <p>本站没有菜单，也没有目录。你能查的东西不多：公告、几段说明、还有那栏一直挂着的<strong>「未取件照片」</strong>。听说，只要在检索框里输入对的词，本站就会翻开一页没写在门户上的内容。至于那个词是什么，没人会告诉你。</p>
+        <p style="font-size:12.5px;color:#5a4b35;">（提示：这里的每一页，都可能藏着下一个词。读完再想，别指望它自己跳出来。）</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="tag">公告栏</span>
+      <div class="board">
+        <p>· 本店自 <span class="hl">1987</span> 年 12 月起暂停营业，柜台业务不再受理，感谢街坊多年的照顾。—— 周春和</p>
+        <p>· 二楼东侧暗房设备老化，请勿擅自开启。剩余胶卷已归类封存，编号入柜。</p>
+        <p>· 历年未取件照片仍在保管，凭取件单可取。名单见下方「未取件照片」栏目。</p>
+        <p>· 本站长期无人维护，如有错漏，望谅解。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="tag">未取件照片 · 选登</span>
+      <div class="grid">
+        <div class="pcard">
+          <div class="frame" data-mark="8701"></div>
+          <span class="stamp">未取</span>
+          <h4>取件单 8701</h4>
+          <p>陈美娟 · 单人照<br>拍摄 1987.12.03</p>
+        </div>
+        <div class="pcard">
+          <div class="frame" data-mark="8702"></div>
+          <span class="stamp">未取</span>
+          <h4>取件单 8702</h4>
+          <p>镇小学 · 合影（一张）<br>拍摄 1987.12.05</p>
+        </div>
+        <div class="pcard">
+          <div class="frame" data-mark="8703"></div>
+          <span class="stamp">未取</span>
+          <h4>取件单 8703</h4>
+          <p>王建国家 · 全家福<br>拍摄 1987.12.05</p>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#5a4b35;margin-top:10px;">（其余名单见店内登记簿）</p>
+    </div>
+
+    <div class="section">
+      <span class="tag">联系方式</span>
+      <div class="contact">
+        地址：<b>青溪镇 老街 17 号</b>（<b>邮局</b>对面，门口有老槐树）<br>
+        电话：<b>镇上总机 转 春和照相馆</b>（已停用）<br>
+        营业时间：上午九点 — 下午五点（逢集照常）<br>
+        冲洗周期：黑白三日，彩色七日
+      </div>
+    </div>
+
+    <footer>
+      <div class="row">
+        <span class="mono">春和照相馆 版权所有 © 1979 — 2003</span>
+        <span class="mono">本站由 芳华工作室 制作 · 最后更新 2003.11.07</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="mono">建议分辨率 800 × 600 · 您是本页第 006417 位访客</span>
+        <span class="mono">档案 00 / 26</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ================= 隐藏页容器 ================= -->
+  <div class="page" id="doc"></div>
+
+</div>
+
+<button class="nbtab" id="nbTab">我的记录 <b id="nbCount">0</b></button>
+<div class="nboverlay" id="nbOverlay"></div>
+<div class="nbpanel" id="nbPanel">
+  <div class="nbhead">
+    <h3>我的记录 · 笔记本</h3>
+    <button class="cls" id="nbClose">合上</button>
+  </div>
+  <div class="nbcols">
+    <div class="nbcol">
+      <h4>已找到的档案</h4>
+      <ul class="nblist" id="nbPages"><li style="color:#7a6a4a;">还没有翻到任何一页。</li></ul>
+    </div>
+    <div class="nbcol">
+      <h4>试过的关键词</h4>
+      <ul class="nblist" id="nbKeys"><li style="color:#7a6a4a;">还没有检索过。</li></ul>
+    </div>
+  </div>
+  <button class="nbkill" id="nbKill">擦掉这本记录（清空重来）</button>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 26;
+
+  /* ============ 页面数据 ============ */
+  var PAGES = {
+    /* ---------- 第一层 入门 ---------- */
+    "周春和": { n:1, t:"店主手记 · 一", body:
+      '<p>周春和，一九六一年生于本镇，十九岁进县城照相馆学徒，二十岁回镇上开了这家店。街坊都说他手稳，给小孩拍照也不嫌烦。</p>'+
+      '<p>他有个习惯：再好的照片，也要一个人关进暗房里慢慢冲。有人催他，他就笑——「红灯底下的活儿，急不来，得等。」</p>'+
+      '<p>他常说一句话：照片是拍给人留念的，可有些底片，留下来的意义不在留念上。</p>'+
+      '<div class="note">手记只剩最后一页：「有些照片留在店里，比交出去好。若有人来问，就说我出了远门。」<br>落款：一九七九年腊月　于老街十七号</div>'
+    },
+
+    "老街": { n:2, t:"本站导览 · 老街", body:
+      '<p>青溪镇老街不长，一条青石板路，两边是木门面的铺子。春和照相馆在十七号，斜对面就是青溪镇邮局，门口一棵老槐树，据说是建店那年栽的。</p>'+
+      '<p>店分前后：前门进来是柜台和取件的地方；后门推开就是后巷，巷子很窄，一直通到河边的码头。</p>'+
+      '<p>街坊记得，照相馆的后门平时是闩着的，只有周春和自己在店里的时候才开。</p>'
+    },
+
+    "暗房": { n:3, t:"暗房使用说明", body:
+      '<p>本店暗房位于二楼东侧，面积约四平方米。一九八七年十一月添置新的放大机与显影盘，可处理 135 与 120 两种规格的底片。</p>'+
+      '<p>操作须知：</p>'+
+      '<p>一、红灯下作业，严禁白光入内。<br>二、显影、定影、水洗、晾干，缺一不可。<br>三、凡当月未冲洗的底片，一律编号入柜，登记在册，不得丢弃。</p>'+
+      '<div class="note">柜门背面贴着一张褪色的纸条：「底片比人记得久。人走了，底片还在柜子里等着。」</div>'
+    },
+
+    "价目表": { n:4, t:"服务价目 · 一角两角都是情", body:
+      '<table class="ledger">'+
+      '<tr><th>项目</th><th>规格</th><th>价钱</th><th>取件</th></tr>'+
+      '<tr><td>一寸单人照</td><td>黑白</td><td>三角</td><td>三日</td></tr>'+
+      '<tr><td>全家福</td><td>黑白</td><td>一元二角</td><td>三日</td></tr>'+
+      '<tr><td>合影（十人以内）</td><td>黑白</td><td>二元</td><td>三日</td></tr>'+
+      '<tr><td>加急</td><td>隔日取</td><td>加倍</td><td>次日</td></tr></table>'+
+      '<p>本店冲洗周期：黑白三日，彩色七日。急件另议。</p>'+
+      '<div class="note">一九八七年冬天，有位顾客很急，非要「当天就好」。周先生破例答应了，还专门开了一次冲洗单——可那张照片，到最后谁也没收到。</div>'
+    },
+
+    "底片": { n:5, t:"底片存档登记", body:
+      '<p>截至停业，本店共存档底片 <span class="paperclip">二百一十七卷</span>。其中一九八七年十二月拍下、至今未冲洗者共<strong>七卷</strong>，编号与对应顾客已登记，等待认领。</p>'+
+      '<table class="ledger"><tr><th>编号</th><th>规格</th><th>拍摄日期</th><th>状态</th></tr>'+
+      '<tr><td>8701</td><td>135</td><td>1987.12.03</td><td>未冲</td></tr>'+
+      '<tr><td>8702</td><td>120</td><td>1987.12.05</td><td>未冲</td></tr>'+
+      '<tr><td>8703</td><td>120</td><td>1987.12.05</td><td>未冲</td></tr>'+
+      '<tr><td>8704—8707</td><td>135</td><td>1987.12.06</td><td>未冲</td></tr></table>'+
+      '<p>七卷底片均未冲洗，不是忘了，是<strong>有意</strong>留下的。登记簿上原本写了冲洗日期，又被铅笔划掉。</p>'+
+      '<div class="note">编号最大的那一卷（8707），不在这几页登记里——它一直压在暗房柜底，谁也没动过。</div>'
+    },
+
+    "规矩": { n:6, t:"柜台后贴的四条规矩", body:
+      '<p>这是周先生用毛笔写在纸上、贴在柜台后面的布置。字迹工整，只是<strong>每一条的头一个字，他都写得比别的字大一圈</strong>。</p>'+
+      '<div class="note">'+
+      '<p style="margin:0 0 8px;">柜台后的登记簿不外借，来客请自重。</p>'+
+      '<p style="margin:0 0 8px;">底片入柜，一卷一号，不许错乱。</p>'+
+      '<p style="margin:0 0 8px;">有客来问旧照，一律答「还没冲好」。</p>'+
+      '<p style="margin:0;">信不过的手艺，做不长。</p>'+
+      '</div>'+
+      '<p>街坊当时只当他脾气怪。如今再看，这四条连起来读，倒像是写给另一个人看的。</p>'
+    },
+
+    "未取件": { n:7, t:"未取件照片 · 全部名单", body:
+      '<p>下列照片拍摄于一九八七年十二月，顾客至今未来取件。若您或您的家人认识名单中的人，请代为转告。</p>'+
+      '<table class="ledger"><tr><th>取件单</th><th>顾客</th><th>内容</th></tr>'+
+      '<tr><td>8701</td><td>陈美娟</td><td>单人照</td></tr>'+
+      '<tr><td>8702</td><td>镇小学</td><td>合影（一张）</td></tr>'+
+      '<tr><td>8703</td><td>王建国</td><td>全家福</td></tr>'+
+      '<tr><td>8704—8707</td><td>——（姓名空）</td><td>未注明</td></tr></table>'+
+      '<p>其中 8702 号是一张<strong>合影</strong>，顾客方留的取件人是「镇小学 林老师」。这张的取件单背面，用铅笔补过一行小字，墨迹很浅，像是后来才加的。</p>'+
+      '<div class="note">名单里有一张的顾客姓名栏是空的，只写了拍摄年份：<strong>1987</strong>。</div>'
+    },
+
+    "1987": { n:8, t:"1987 年冬 · 停业公告", body:
+      '<p>各位街坊：</p>'+
+      '<p>本店自一九八七年十二月七日起暂停营业，未取照片照常保管，营业恢复时间另行通知。</p>'+
+      '<p>另：本月五日，镇小学师生在我店拍摄<strong>合影</strong>一张，若有人问起这张照片，请告知对方——照片尚未冲洗完成。</p>'+
+      '<p style="text-align:right;">春和照相馆　周春和　十二月六日夜</p>'+
+      '<div class="note">公告贴出后第二天，周春和就不见了。邻居说，前一夜很晚，二楼暗房的灯还亮着。</div>'+
+      '<p>这张合影，他一辈子也没冲洗出来。</p>'
+    },
+
+    /* ---------- 第二层 进阶 ---------- */
+    "合影": { n:9, t:"8702 · 合影（未冲洗）", body:
+      '<p>规格：120 黑白。拍摄地点：照相馆门口老槐树下。拍摄时间：一九八七年十二月五日下午。</p>'+
+      '<p>取件单正面写的是「镇小学 林老师 收」，背面有一行很浅的铅笔字，是周春和的笔迹：</p>'+
+      '<div class="note">「底片上本有七个人。名单上我只写了六个。<br>第七个，我不能写。」</div>'+
+      '<p>底片袋上另有一道铅笔痕，把名册里最小的那个名字轻轻划掉了，划得很轻，像是舍不得。</p>'
+    },
+
+    "林老师": { n:10, t:"林秀云老师的调令", body:
+      '<p>林秀云，一九五五年生，青溪镇小学教师，一九八七年秋季学期任教二年级。</p>'+
+      '<p>那年冬天，学期还没结束，她就办了调动。调令存根还留在镇教育口的旧档案里，编号「青教字（87）第 112 号」，调往外县。</p>'+
+      '<div class="note">调令上没有写理由，只写了一句附注：「随迁一名学生，学籍另办。」<br>可她班上的学生名册里，并没有人跟着转走。</div>'+
+      '<p>她班上有个学生，叫小满。名册上，小满的名字后面，学籍栏是空的。</p>'
+    },
+
+    "第七个人": { n:11, t:"第七个人", body:
+      '<p>那张合影上，站着镇小学的林秀云老师和她的六个学生。可底片里，还有第七个孩子。</p>'+
+      '<p>她叫小满，是林老师班上的学生。那年冬天，小满的奶奶过世，父母远在外地，家里再没有人接她回家。</p>'+
+      '<p>临行前，她们来照相馆拍了一张合影，想让小满记住这个镇子的样子。周春和按下快门的时候，数了数，一共<strong>七个人</strong>。</p>'+
+      '<p>可他只登记了六个名字。</p>'+
+      '<div class="note">他在取件单上留了最后一行字：「少写一个，她们就少一分被找到的可能。这秘密，我替她们守。」</div>'+
+      '<p>那一页的页脚，写着一个词，被圈了两遍——<strong>冲洗单</strong>。</p>'
+    },
+
+    "小满": { n:12, t:"小满", body:
+      '<p>小满，一九七九年生，镇小学二年级学生。学籍卡上写着「父母在外，由祖母抚养」。祖母一九八七年十一月病故。</p>'+
+      '<p>她的转学手续一直没办成，因为——她本来就没有正式的户口，是祖母早年抱养的孩子。</p>'+
+      '<div class="note">林老师留下一本日记，只残存一句：「腊月里的头一个节气，我就带她走。」</div>'+
+      '<p>腊月里的头一个节气，是<strong>冬至</strong>。</p>'
+    },
+
+    "冲洗单": { n:13, t:"冲洗单 · 背面", body:
+      '<p>8702 号照片的冲洗单一直留在暗房柜底，从未使用。单子背面，是周春和写下的经过。字写得比平时急，可每一段<strong>头一个字，都单独顶格占了一行</strong>。</p>'+
+      '<p>后半夜，雪停了。林老师带着小满，从后门进来，衣裳上落了薄薄一层白。</p>'+
+      '<p>门帘上还挂着雪，周春和替她们扫了扫，谁都没说话，只把炉子拨旺了。</p>'+
+      '<p>有底片压在柜底，他说：「留在我这儿，最安全。」</p>'+
+      '<p>人走了，灯亮到天亮。第二天，他关了店，也走了。</p>'+
+      '<div class="note">最后一行，他写：「这张单子，等它哪天被用上，事情就过去了。」</div>'
+    },
+
+    "冬至": { n:14, t:"一九八七年 · 老黄历残页", body:
+      '<p>镇上老供销社的清货单里，夹着一页一九八七年的黄历残纸，上面标着节气：</p>'+
+      '<table class="ledger"><tr><th>节气</th><th>农历</th><th>公历</th><th>星期</th></tr>'+
+      '<tr><td>大雪</td><td>十月十七</td><td>1987.12.07</td><td>一</td></tr>'+
+      '<tr><td>冬至</td><td>十一月初二</td><td>1987.12.22</td><td>二</td></tr>'+
+      '<tr><td>小寒</td><td>十一月十六</td><td>1988.01.06</td><td>三</td></tr></table>'+
+      '<div class="note">一九八七年冬至，是农历十一月初二，公历十二月二十二日，星期二。那天镇上落了雪。有人看见，照相馆后巷里，天没亮就停了一辆拉货的车。</div>'
+    },
+
+    "登记簿": { n:15, t:"店内登记簿（受限）", gate:
+      { label:"请输入取件编号", hint:"柜台上那本登记簿，要凭取件单的号码才能翻到对应的一页。", ans:["8702"] }, body:
+      '<p>登记簿翻到一九八七年十二月这一页，大半已被撕去。剩下的边角上，还能认出两行字：</p>'+
+      '<table class="ledger"><tr><th>日期</th><th>项目</th><th>顾客</th><th>备注</th></tr>'+
+      '<tr><td>12.05</td><td>合影</td><td>林老师</td><td>铅笔划去</td></tr>'+
+      '<tr><td>12.05</td><td>合影</td><td>（空）</td><td>盖「作废」章</td></tr></table>'+
+      '<p>同一个下午，登记了<strong>两次合影</strong>。一次写了名字，一次没有——两张取件单，却只对应一卷底片。</p>'+
+      '<div class="note">被撕去的那几页，断口很整齐，像是拿尺子比着撕的。撕的人，不希望别人看见那几天还有谁来过。</div>'
+    },
+
+    "后门": { n:16, t:"后巷", body:
+      '<p>后门通后巷，巷子尽头是河边码头。后巷很窄，两个人并肩走都要侧身。</p>'+
+      '<p>一九八七年十二月二十二日清晨，天还没亮，码头上有人看见一大一小两个人上了岸，后面跟着一个男人，替她们拎着包，一直送到巷口就停住了。</p>'+
+      '<p>那天包车送人的司机后来跟人念叨过：那趟活，是照相馆的周先生出的钱，可他送到巷口，自己没上车。</p>'+
+      '<div class="note">照相馆墙上贴着一张值日表，最后一格写着「店休」。可值日表里明明还有一行被涂掉的字，谁也认不出了。</div>'
+    },
+
+    "邮局": { n:17, t:"青溪镇邮局 · 挂号存根", body:
+      '<p>青溪镇邮局就在照相馆斜对面。一九八七年冬天，从这儿寄出的挂号信不多，其中有一封寄往外省一家矿务局，收件人姓<strong>满</strong>。</p>'+
+      '<p>寄信人没留自己的名字，只在信封一角画了棵小树——那是照相馆写字台上的旧印章。</p>'+
+      '<p>那户姓满的人家，正是小满父母干活的那个矿上。</p>'+
+      '<div class="note">从第二年起，邮局的存根簿里，每个月都多出一笔从外省寄回来的汇款，收款人写着「周春和」。这一笔，一寄就是许多年。</div>'
+    },
+
+    /* ---------- 第三层 核心 ---------- */
+    "车站": { n:18, t:"县汽车站 · 值班记录", body:
+      '<p>县汽车站就在镇口。值班记录上，一九八七年十二月二十二日早上六点十分，开往省城的头班车，卖出了三张票。</p>'+
+      '<p>售票的姑娘记得那三个人：一个女老师，一个扎辫子的小丫头，还有一个男的，站在车门口替她们把票递上去，自己没上车。</p>'+
+      '<div class="note">记录本备注栏里，值夜的人随手写了一行：「男的不肯说名字，只说是来送人的。」<br>从那以后，这个男的就成了邮局的常客——每个月都来寄一次钱，回回不留地址。</div>'
+    },
+
+    "值日表": { n:19, t:"照相馆值日表（受限）", gate:
+      { label:"请输入四位数字密码", hint:"值日表挂在暗房门口，门上有把旧锁。锁的密码，就是全镇人都知道的那个日子——冬至那天。", ans:["1222","1222.","十二月二十二","12月22日"] }, body:
+      '<p>一张手写的值日表，贴在暗房门口的墙上，记的是十二月里谁值班、谁冲片。</p>'+
+      '<table class="ledger"><tr><th>日期</th><th>值班</th><th>备注</th></tr>'+
+      '<tr><td>12.05</td><td>周春和</td><td>镇小学合影</td></tr>'+
+      '<tr><td>12.06</td><td>周春和</td><td>夜里加班（涂改处）</td></tr>'+
+      '<tr><td>12.07</td><td>周春和</td><td>停业</td></tr>'+
+      '<tr><td>12.22</td><td>店休</td><td>东屋有人</td></tr></table>'+
+      '<p>表上一共出现「周春和」三个字<strong>三次</strong>，每一次的「春」都多写了一横，像是手抖。而十二月二十二日那格，明明写着「店休」，下面又补了四个小字：<strong>东屋有人</strong>。</p>'+
+      '<div class="note">东屋，就是那间暗房。那天他明明说店休，却还是有人进了暗房——是谁，从后门进去的？</div>'
+    },
+
+    "汇款单": { n:20, t:"汇款单存根", body:
+      '<p>邮局存根簿里，从外省某地寄回青溪镇的汇款，收款人一栏始终写着「周春和」，汇款人署名却一直是一串相同的代号，像是某种编号。</p>'+
+      '<p>一月一笔，从无间断。记满了一本，又换一本。</p>'+
+      '<table class="ledger"><tr><th>起始</th><th>终止</th><th>笔数</th></tr>'+
+      '<tr><td>1987.12</td><td>2003.11</td><td>192</td></tr></table>'+
+      '<div class="note">一九九二年十二月起，寄款人改署了另一个字，笔画不多，像是个名字的头一个字。最后来寄钱的那次，邮局的人记得清楚：那个不爱说话的男人，头发已经全白了。</div>'
+    },
+
+    "芳华工作室": { n:21, t:"本站承建方 · 芳华工作室", body:
+      '<p>本站底部的「芳华工作室」，不是镇上的单位。它是二〇〇三年有人托外地的朋友，用一台旧电脑、一根拨号电话线，一点点做出来的。</p>'+
+      '<p>接活的人后来回忆：委托人寄来一沓手写的稿子和几张翻拍的旧照，要求很怪——「版面要停在一九八七年，别弄得太新。」稿子的最后一页只写了一句话：</p>'+
+      '<div class="note">「这个站，是留给一个来取照片的人的。」<br>——落款处的字迹发抖，还是那个名字：周春和。</div>'+
+      '<p>可是周春和一九八七年冬天就走了。是谁，在二〇〇三年，替他写下这些字、又替他把站做出来的？</p>'
+    },
+
+    "2003": { n:22, t:"本站最后更新", body:
+      '<p>本站最后更新：二〇〇三年十一月七日。</p>'+
+      '<p>对照邮局存根——从外省寄回、署名相同的那笔汇款，也正是在二〇〇三年十一月停了。</p>'+
+      '<p>十六年，每月一笔，没有间断。而支撑这个网站租服务器、买域名的钱，不多不少，正好够撑到二〇〇三年。</p>'+
+      '<div class="note" style="border-color:var(--red);background:rgba(207,58,48,.1);">换句话说：那个「出了一趟远门」的人，其实一直活着，一直记得这条街，一直没有回来。他只是把要说的话，都写进了这个站里，然后，连汇款也停了。<br>——是走不动了，还是终于放心了？</div>'
+    },
+
+    "女医生": { n:23, t:"三十年后", body:
+      '<p>二〇一七年冬，一位从省城来的女医生回到青溪镇，在已经关门的照相馆门口站了很久。她姓林，随了她小学老师的姓。</p>'+
+      '<p>她对街坊说，她想取一件照片。取件单上的号码是「8702」。</p>'+
+      '<p>她还问了一件事：「当年那个总在楼上亮灯的人，后来回来过吗？」</p>'+
+      '<div class="note">街坊摇头。她却笑了，说：「没关系。他把话都写在这里了，我找得到。」<br>那天下午，她一个人上了二楼东边那间屋。</div>'
+    },
+
+    "暗柜": { n:24, t:"暗房柜底（受限）", gate:
+      { label:"请输入那一卷底片的编号", hint:"暗房靠墙的木柜，最下面一层压着一卷底片。柜门上写着：编号最大的那卷，留给来取照片的人。", ans:["8707"] }, body:
+      '<p>二楼东侧暗房，靠墙一口旧木柜，四层。柜门背面的纸条已经发脆，上面一行字：</p>'+
+      '<div class="note">「柜子四层，前三层是底片，最下面一层，留给来取照片的人。」</div>'+
+      '<p>最下面一层，压着一个牛皮纸袋。袋子正面写着取件单的号码，还有一行小字：「来人若问起七个人，就把这个给她。」</p>'+
+      '<p>袋子里是一卷没冲的底片，和一张折了很多次、边角已经磨毛的信纸。</p>'
+    },
+
+    "信": { n:25, t:"周春和留下的信", body:
+      '<p>信纸上，是周春和的字，写得很慢，一笔一画：</p>'+
+      '<div class="note" style="border-color:var(--blue);background:rgba(38,71,143,.1);">'+
+      '看信的人：<br><br>'+
+      '如果你数出了合影里的七个人，那你就是我要等的人。<br><br>'+
+      '那年冬天，我怕的不是别的，是有人一遍遍来问。我只要还站在那条街上，小满就一天不得安生。所以我把照片扣下，把名字少写一个，把自己也说成出了远门的人。<br><br>'+
+      '底片我留着，不是舍不得，是怕扔了，你们连回头找的地方都没有了。<br><br>'+
+      '我后来去过很多地方，每月往邮局寄一次钱，不多，够把这柜子里的底片买到今天。等哪天我寄不动了，这个站应该也已经做好了。<br><br>'+
+      '你要是来了，就把这卷底片<span class="hl">带走</span>吧。<br>它等了你三十年。'+
+      '</div>'
+    },
+
+    "带走": { n:26, t:"全站已解密 · 结局", body:
+      '<p>女医生把那卷底片带回了省城。冲出来那天，正赶上一个大晴天。</p>'+
+      '<p>照片上，青溪镇小学的师生站在老槐树下，一共七个人。前排最边上，多站着一个扎辫子的小女孩，笑得很好看。</p>'+
+      '<div class="note"><b>那个孩子，是谁？</b><br>'+
+      '她叫小满，一九七九年生。她不是谁的亲生女儿——是奶奶早年从外面抱回来养的，户口本上一直没有她的名字。她的父母在外省一座矿上做工，一年到头回不来，她从小是奶奶一手带大的。<br>'+
+      '一九八七年十一月，奶奶病故了。父母那边音信不通，家里再没有一个人能接她回家。</div>'+
+      '<div class="note"><b>那天夜里，到底发生了什么？</b><br>'+
+      '林秀云老师不忍心看着自己班上的孩子没人管。可她只是个刚从外乡调来的年轻女老师，要带一个「没有户口的孩子」走，走正规手续只会把动静闹大——孩子多半会被送回原籍，或者送进福利院，而她，也会被一遍遍追问到底。<br>'+
+      '想来想去，只剩一条路：不声不响地走。<br>'+
+      '一九八七年十二月五日，她带着班上的孩子来照相馆拍了最后一张合影，算是告别。周春和按下快门，数出七个人——可他只在登记簿上记了六个名字。<br>'+
+      '他后来写道：「少写一个，她们就少一分被找到的可能。」<br>'+
+      '十二月二十二日冬至，天没亮，林老师牵着小满从后门进店，把那卷底片压进柜底，又从后巷绕到码头，上了开往省城的头班车。周春和替她们拎包、买票，一直送到巷口，自己没上车。</div>'+
+      '<div class="note"><b>为什么要瞒着所有人？</b><br>'+
+      '只要这条街上还留着一张写全七个名字的合影，还留着一个人知道他送走了谁，就总有人能顺藤摸瓜找上门来。<br>'+
+      '所以周春和把底片扣下，把名字少写一个，又在停业公告里把大家的注意引向「那张师生合影」——自己只对外说了一句「出了远门」。<br>'+
+      '他用自己的「消失」，替她们挡掉了往后所有可能的追问。</div>'+
+      '<div class="note"><b>后来呢？</b><br>'+
+      '林老师把小满带到外县，办了转学，让她随了自己的姓。小满从此姓林，在别的地方长大、念书，后来成了一名医生。<br>'+
+      '而周春和，再没回过青溪镇。从一九八七年冬天起，他每月从外省往镇上邮局寄一笔钱，不多，够把柜子里那卷底片买到今天。一月一笔，从没断过，一共一百九十二笔。<br>'+
+      '二〇〇三年，他托人做了这个网站，把要说的话一句句藏进网页里。同年十一月，最后一笔汇款停了——他寄不动了。网站，也就停在了那一刻。</div>'+
+      '<p>二〇一七年冬，一位从省城来的女医生回到青溪镇。她姓林，随了她小学老师的姓。她要取 8702 号照片，还问了一句：「当年那个总在楼上亮灯的人，后来回来过吗？」</p>'+
+      '<p>她一个人走上二楼东屋，从柜底取出那卷等了她三十年的底片。</p>'+
+      '<p>照片冲出来了。前排最边上，那个扎辫子的小女孩，笑得很好看。</p>'+
+      '<p>女医生把照片带走了。她说，要把它挂在自己的诊室里，让来看病的孩子都看看——很多年前，有人为了守一个孩子，把整整一座小镇瞒了三十年。</p>'+
+      '<div class="note">档案馆里写：周春和，一九八七年冬离开青溪镇，此后无记录。<br>可是这家没人维护的网站，灯一直没关。<br>它只是在等一个来取照片的人。</div>'+
+      '<p style="text-align:center;margin-top:20px;font-family:\'DM Serif Display\',serif;font-size:18px;color:var(--blue);">—— 全站已解密 · 感谢你替他把照片等到 ——</p>'
+    }
+  };
+
+  /* ============ 别名 ============ */
+  var ALIAS = {
+    "老板":"周春和","店主":"周春和","周春河":"周春和","照相馆老板":"周春和",
+    "林秀云":"林老师","老师":"林老师","林老师":"林老师",
+    "胶卷":"底片","底片存档":"底片",
+    "8702":"合影","集体照":"合影","合影照":"合影",
+    "小满":"小满",
+    "冲洗":"冲洗单",
+    "登记":"登记簿","登记册":"登记簿",
+    "后巷":"后门","后门":"后门",
+    "汽车站":"车站","码头":"车站","车站":"车站",
+    "值日":"值日表",
+    "寄钱":"汇款单","汇款":"汇款单",
+    "芳华":"芳华工作室","建站":"芳华工作室",
+    "遗书":"信","信":"信",
+    "冬至日":"冬至","1987年冬至":"冬至",
+    "柜底":"暗柜","暗柜台":"暗柜",
+    "拿走":"带走","带走底片":"带走","带走照片":"带走"
+  };
+
+  /* ============ 陷阱词 ============ */
+  var TRAPS = {
+    "周春河":"查无此人。本站的店主，姓周，名春和。您把中间那个字写错了。",
+    "老板":"本站没有登记过「老板」这个称呼。手记里的那个人，用的是自己的名字。",
+    "省城":"本站未收录省外的档案。要查一个人、一辆车的去向，镇上的记录里或许有——比如，那趟一早开出镇口的车。",
+    "儿子":"本站没提到过谁的儿女。倒是有个学生，学籍一直没转出去。",
+    "女儿":"本站没提到过谁的儿女。倒是有个学生，一直跟着老师。",
+    "8501":"这个编号不在本站档案里。已登记的取件单，号码都以 87 开头。",
+    "8700":"编号不对。最靠前的一张，是 8701。",
+    "满":"「满」是姓。可本站不记活人的去向——那户人家的信，是往镇上邮局寄的。",
+    "仓库":"本站没有仓库。底片都锁在二楼东边那间屋里。",
+    "墓地":"本站是照相馆的网站，只放照片，不放这些。",
+    "警察":"本站没有这方面的记录。那个冬天的事，是镇上自己悄悄消化掉的。"
+  };
+
+  /* ============ 记录本 / 存档 ============ */
+  var SKEY = "chunhe_notebook_v1";
+  var state = { pages:{}, keys:[], unlocked:{} };
+  try{
+    var raw = localStorage.getItem(SKEY);
+    if(raw){ var s = JSON.parse(raw); if(s && typeof s==='object'){ state.pages=s.pages||{}; state.keys=s.keys||[]; state.unlocked=s.unlocked||{}; } }
+  }catch(e){}
+  function save(){ try{ localStorage.setItem(SKEY, JSON.stringify(state)); }catch(e){} }
+
+  /* ============ 工具 ============ */
+  function norm(s){
+    return (s||'').replace(/[\s'"「」《》·,，。.、:：;；!！?？\-—_（）()]/g,'').trim();
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  var input=document.getElementById('q');
+  var msg=document.getElementById('msg');
+  var home=document.getElementById('home');
+  var doc=document.getElementById('doc');
+
+  function lookup(raw){
+    var k = norm(raw);
+    if(!k) return null;
+    if(ALIAS[k]) k = ALIAS[k];
+    if(PAGES[k]) return {key:k, page:PAGES[k]};
+    for(var key in PAGES){ if(norm(key)===k) return {key:key, page:PAGES[key]}; }
+    return null;
+  }
+
+  function findTrap(raw){
+    var k = norm(raw);
+    if(!k) return null;
+    if(TRAPS[k]) return TRAPS[k];
+    for(var key in TRAPS){ if(norm(key)===k) return TRAPS[key]; }
+    return null;
+  }
+
+  /* ============ 渲染 ============ */
+  function renderDoc(p, key){
+    doc.innerHTML =
+      '<div class="doc">'+
+        '<div class="doc-bar"><span>档案 '+pad(p.n)+' / '+TOTAL+'</span><span>春和照相馆 · 隐藏页</span></div>'+
+        '<div class="doc-body">'+
+          '<h2>'+p.t+'</h2><span class="rule"></span>'+
+          p.body+
+          '<div class="pagetag">'+pad(p.n)+' / '+TOTAL+'</div>'+
+          '<button class="backbtn" id="bk">← 返回首页</button>'+
+        '</div>'+
+      '</div>';
+    document.getElementById('bk').onclick = showHome;
+  }
+
+  function renderGate(p, key){
+    doc.innerHTML =
+      '<div class="doc">'+
+        '<div class="doc-bar"><span>档案 '+pad(p.n)+' / '+TOTAL+'</span><span>受限页面 · 需验证</span></div>'+
+        '<div class="doc-body">'+
+          '<h2>'+p.t+'</h2><span class="rule"></span>'+
+          '<p><span class="locked-tag">此页已锁定</span></p>'+
+          '<p>这一页被锁住了。要翻开它，得先输入页面上要求的编号。</p>'+
+          '<div class="gate">'+
+            '<label>'+p.gate.label+'</label>'+
+            '<div class="srow"><input id="gi" type="text" autocomplete="off" placeholder="在这里输入……"><button id="gk">确认</button></div>'+
+            '<div class="gmsg" id="gmsg"></div>'+
+            '<div class="ghint">线索：'+p.gate.hint+'</div>'+
+          '</div>'+
+          '<button class="backbtn" id="bk">← 返回首页</button>'+
+        '</div>'+
+      '</div>';
+    var gi = document.getElementById('gi');
+    var gm = document.getElementById('gmsg');
+    function tryGate(){
+      var v = norm(gi.value);
+      var ok = p.gate.ans.some(function(a){ return norm(a)===v; });
+      if(ok){
+        state.unlocked[key] = true;
+        state.pages[key] = p.n;
+        save(); refreshNotebook();
+        gm.className='gmsg'; gm.textContent='验证通过，正在翻开……';
+        setTimeout(function(){ renderDoc(p, key); }, 500);
+      }else{
+        gm.className='gmsg bad'; gm.textContent='编号不对。锁没有开。';
+      }
+    }
+    document.getElementById('gk').onclick = tryGate;
+    gi.addEventListener('keydown', function(e){ if(e.key==='Enter') tryGate(); });
+    document.getElementById('bk').onclick = showHome;
+  }
+
+  function showHome(){
+    doc.classList.remove('on');
+    home.classList.add('on');
+    window.scrollTo(0,0);
+  }
+
+  function showPage(key){
+    var p = PAGES[key];
+    if(p.gate && !state.unlocked[key]){
+      renderGate(p, key);
+    }else{
+      renderDoc(p, key);
+      state.pages[key] = p.n;
+      save(); refreshNotebook();
+    }
+    home.classList.remove('on');
+    doc.classList.add('on');
+    window.scrollTo(0,0);
+  }
+
+  /* ============ 检索 ============ */
+  function submit(){
+    var raw = input.value;
+    if(!norm(raw)){ msg.textContent='请输入要检索的内容。'; msg.className='msg bad'; return; }
+    input.value='';
+
+    var hit = lookup(raw);
+    if(hit){
+      if(state.keys.indexOf(norm(raw))<0){ state.keys.push(norm(raw)); if(state.keys.length>40) state.keys.shift(); }
+      msg.textContent='检索到 1 条结果，正在打开……';
+      msg.className='msg';
+      showPage(hit.key);
+      setTimeout(function(){ msg.textContent=''; }, 2200);
+      return;
+    }
+    var trap = findTrap(raw);
+    if(trap){
+      if(state.keys.indexOf(norm(raw))<0){ state.keys.push(norm(raw)); if(state.keys.length>40) state.keys.shift(); }
+      save(); refreshNotebook();
+      msg.innerHTML='未找到相关内容。<br>'+trap;
+      msg.className='msg bad';
+      return;
+    }
+    msg.textContent='未找到相关内容。';
+    msg.className='msg bad';
+  }
+
+  document.getElementById('go').onclick = submit;
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+
+  /* ============ 记录本 UI ============ */
+  var nbPanel=document.getElementById('nbPanel');
+  var nbOverlay=document.getElementById('nbOverlay');
+  var nbCount=document.getElementById('nbCount');
+  var nbPages=document.getElementById('nbPages');
+  var nbKeys=document.getElementById('nbKeys');
+
+  function refreshNotebook(){
+    var arr=[];
+    for(var k in state.pages){ arr.push({k:k, n:state.pages[k]}); }
+    arr.sort(function(a,b){ return a.n-b.n; });
+    nbCount.textContent = arr.length;
+    if(!arr.length){
+      nbPages.innerHTML='<li style="color:#7a6a4a;">还没有翻到任何一页。</li>';
+    }else{
+      nbPages.innerHTML = arr.map(function(o){
+        return '<li><span>'+ PAGES[o.k].t +'</span><span class="num">'+ pad(o.n) +' / '+TOTAL+'</span></li>';
+      }).join('');
+    }
+    if(!state.keys.length){
+      nbKeys.innerHTML='<li style="color:#7a6a4a;">还没有检索过。</li>';
+    }else{
+      nbKeys.innerHTML = state.keys.slice().reverse().map(function(k){
+        return '<li><span>'+ k +'</span><span class="num">已试</span></li>';
+      }).join('');
+    }
+  }
+
+  function openNb(){ nbPanel.classList.add('open'); nbOverlay.classList.add('on'); }
+  function closeNb(){ nbPanel.classList.remove('open'); nbOverlay.classList.remove('on'); }
+  document.getElementById('nbTab').onclick = openNb;
+  document.getElementById('nbClose').onclick = closeNb;
+  nbOverlay.onclick = closeNb;
+  document.getElementById('nbKill').onclick = function(){
+    if(window.confirm('确定要擦掉这本记录吗？已找到的档案与关键词都会被清空。')){
+      state = { pages:{}, keys:[], unlocked:{} };
+      save(); refreshNotebook();
+      msg.textContent='记录已清空。'; msg.className='msg';
+    }
+  };
+
+  refreshNotebook();
+})();
+</script>
+<a href="guide.html" class="guideTab" aria-label="查看攻略">攻略</a>
+<style>
+.guideTab{position:fixed;left:10px;bottom:12px;z-index:1000;font-family:"Bungee","Space Mono",monospace;font-size:12px;letter-spacing:.08em;color:#fff;background:var(--blue,#26478f);text-decoration:none;line-height:1;padding:11px 13px;border:2px solid var(--ink,#241c14);box-shadow:3px 3px 0 var(--ink,#241c14);opacity:.9;transition:opacity .15s,transform .15s,box-shadow .15s}
+.guideTab:hover{opacity:1;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink,#241c14)}
+.guideTab:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink,#241c14)}
+</style>
+</body>
+</html>
